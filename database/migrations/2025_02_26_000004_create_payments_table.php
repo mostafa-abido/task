@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('invoice_id')->constrained()->cascadeOnDelete();
             $table->decimal('amount', 12, 2);
-            $table->string('payment_method'); // cash, bank_transfer, credit_card
+            $table->string('payment_method');
             $table->string('reference_number')->nullable();
             $table->timestamp('paid_at');
             $table->timestamps();

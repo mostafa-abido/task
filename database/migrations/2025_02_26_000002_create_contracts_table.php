@@ -16,7 +16,7 @@ return new class extends Migration
             $table->decimal('rent_amount', 12, 2);
             $table->date('start_date');
             $table->date('end_date');
-            $table->string('status'); // draft, active, expired, terminated
+            $table->string('status');
             $table->timestamps();
         });
     }
