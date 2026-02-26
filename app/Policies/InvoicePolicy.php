@@ -2,7 +2,6 @@
 
 namespace App\Policies;
 
-use App\Enums\InvoiceStatus;
 use App\Models\Contract;
 use App\Models\Invoice;
 use App\Models\User;
@@ -55,7 +54,8 @@ class InvoicePolicy
         if ($user->tenant_id === null) {
             return false;
         }
-        if ($invoice->status === InvoiceStatus::Cancelled) {
+        $invoiceStatus = is_object($invoice->status) ? $invoice->status->value : $invoice->status;
+        if ($invoiceStatus === 'cancelled') {
             return false;
         }
         return (int) $invoice->tenant_id === (int) $user->tenant_id;

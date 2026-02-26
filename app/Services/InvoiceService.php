@@ -35,7 +35,8 @@ class InvoiceService
     public function createInvoice(CreateInvoiceDTO $dto): Invoice
     {
         $contract = $this->contractRepo->getByIdOrFail($dto->contract_id);
-        if ($contract->status->value !== 'active') {
+        $statusValue = is_object($contract->status) ? $contract->status->value : $contract->status;
+        if ($statusValue !== 'active') {
             throw new InvalidArgumentException('Contract must be active to create an invoice.');
         }
         if ($contract->tenant_id != $dto->tenant_id) {
@@ -71,7 +72,8 @@ class InvoiceService
     public function recordPayment(RecordPaymentDTO $dto): Payment
     {
         $invoice = $this->invoiceRepo->getByIdOrFail($dto->invoice_id);
-        if ($invoice->status === InvoiceStatus::Cancelled) {
+        $invoiceStatus = is_object($invoice->status) ? $invoice->status->value : $invoice->status;
+        if ($invoiceStatus === 'cancelled') {
             throw new InvalidArgumentException('Cannot record payment on a cancelled invoice.');
         }
         $totalPaid = $this->paymentRepo->getTotalPaidForInvoice($invoice->id);
