@@ -16,7 +16,7 @@ return new class extends Migration
             $table->decimal('subtotal', 12, 2);
             $table->decimal('tax_amount', 12, 2)->default(0);
             $table->decimal('total', 12, 2);
-            $table->string('status'); // pending, paid, partially_paid, overdue, cancelled
+            $table->string('status');
             $table->date('due_date');
             $table->timestamp('paid_at')->nullable();
             $table->timestamps();

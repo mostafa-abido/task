@@ -12,6 +12,11 @@ class Invoice extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'contract_id',
         'tenant_id',
@@ -24,6 +29,11 @@ class Invoice extends Model
         'paid_at',
     ];
 
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
     protected function casts(): array
     {
         return [
@@ -36,11 +46,17 @@ class Invoice extends Model
         ];
     }
 
+    /**
+     * Get the contract that owns the invoice.
+     */
     public function contract(): BelongsTo
     {
         return $this->belongsTo(Contract::class);
     }
 
+    /**
+     * Get the payments for the invoice.
+     */
     public function payments(): HasMany
     {
         return $this->hasMany(Payment::class);

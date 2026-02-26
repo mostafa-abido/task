@@ -11,6 +11,11 @@ class Contract extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'tenant_id',
         'unit_name',
@@ -21,6 +26,11 @@ class Contract extends Model
         'status',
     ];
 
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
     protected function casts(): array
     {
         return [
@@ -31,6 +41,9 @@ class Contract extends Model
         ];
     }
 
+    /**
+     * Get the invoices for the contract.
+     */
     public function invoices(): HasMany
     {
         return $this->hasMany(Invoice::class);
